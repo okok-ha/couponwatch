@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  无障碍服务配置
+  - accessibilityEventTypes：只订阅窗口/内容变化三类事件，不订阅点击、文本变化等高频事件，
+    既降低功耗，也避免拿到与"弹窗识别"无关的输入内容。
+  - flagRetrieveInteractiveWindows：允许调用 getWindows() 获取 AccessibilityWindowInfo 列表，
+    这是识别"弹窗所属窗口"的前提（TYPE_WINDOWS_CHANGED 也依赖该标志）。
+  - canRetrieveWindowContent=true：读取 UI 层级（节点文本）所必需。
+  - canPerformGestures / canRequestFilterKeyEvents 显式关闭：本应用不做手势注入、不监听按键，
+    因此不申请这两项能力。
+  - isAccessibilityTool=false：本应用不是面向残障用户的辅助工具，如实声明，
+    系统会因此显示一条隐私提醒（属预期行为）。
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowsChanged|typeWindowContentChanged"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagRetrieveInteractiveWindows|flagReportViewIds|flagIncludeNotImportantViews"
+    android:canPerformGestures="false"
+    android:canRequestFilterKeyEvents="false"
+    android:canRetrieveWindowContent="true"
+    android:description="@string/accessibility_service_description"
+    android:isAccessibilityTool="false"
+    android:notificationTimeout="200"
+    android:summary="@string/accessibility_service_summary"
+    tools:targetApi="31" />

@@ -1,0 +1,14 @@
+# 构建产物
+build/
+.gradle/
+local.properties
+*.apk
+*.aab
+*.iml
+.idea/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Room 导出的 schema（如希望版本化，可删掉这一行）
+app/schemas/

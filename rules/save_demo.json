@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "name": "save_demo",
+  "created_at": "2026-11-14 12:18:36",
+  "mode": "positional",
+  "confidence": 0.94,
+  "length": {
+    "min": 14,
+    "max": 14
+  },
+  "prefix": "SAVE",
+  "suffix": "",
+  "separators": [
+    "-"
+  ],
+  "charset": "234789BFHKMNPQRTWXZ",
+  "checksum": null,
+  "notes": [
+    "所有样例等长，采用逐位统计；同一位置出现多个字符即视为可变字段。",
+    "未检出常见校验位算法（Luhn/Damm/Verhoeff/ISO 7064/加权和）。这不代表没有校验位，也可能使用了私有算法。"
+  ],
+  "regex": "^SAVE\\-2026\\-[A-Z0-9]{4}$",
+  "regex_strict": "^SAVE\\-2026\\-[234789BFHKMNPQRTWXZ]{4}$",
+  "fields": [
+    {
+      "kind": "literal",
+      "value": "SAVE",
+      "charset": "",
+      "regex_class": "",
+      "gen_charset": "",
+      "min_len": 4,
+      "max_len": 4,
+      "label": "固定片段",
+      "class_key": "",
+      "strict_class": "",
+      "observed_ratio": 1.0
+    },
+    {
+      "kind": "literal",
+      "value": "-",
+      "charset": "",
+      "regex_class": "",
+      "gen_charset": "",
+      "min_len": 1,
+      "max_len": 1,
+      "label": "分隔符",
+      "class_key": "",
+      "strict_class": "",
+      "observed_ratio": 1.0
+    },
+    {
+      "kind": "literal",
+      "value": "2026",
+      "charset": "",
+      "regex_class": "",
+      "gen_charset": "",
+      "min_len": 4,
+      "max_len": 4,
+      "label": "固定片段",
+      "class_key": "",
+      "strict_class": "",
+      "observed_ratio": 1.0
+    },
+    {
+      "kind": "literal",
+      "value": "-",
+      "charset": "",
+      "regex_class": "",
+      "gen_charset": "",
+      "min_len": 1,
+      "max_len": 1,
+      "label": "分隔符",
+      "class_key": "",
+      "strict_class": "",
+      "observed_ratio": 1.0
+    },
+    {
+      "kind": "charset",
+      "value": "",
+      "charset": "234789BFHKMNPQRTWXZ",
+      "regex_class": "[A-Z0-9]",
+      "gen_charset": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "min_len": 4,
+      "max_len": 4,
+      "label": "大写字母+数字",
+      "class_key": "alnum_upper",
+      "strict_class": "[234789BFHKMNPQRTWXZ]",
+      "observed_ratio": 0.5278
+    }
+  ],
+  "samples": [
+    "SAVE-2026-8F3K",
+    "SAVE-2026-QW7M",
+    "SAVE-2026-4XZ9",
+    "SAVE-2026-7H2P",
+    "SAVE-2026-K3RN",
+    "SAVE-2026-M9TB"
+  ],
+  "saved_at": "2026-11-14 12:18:36"
+}

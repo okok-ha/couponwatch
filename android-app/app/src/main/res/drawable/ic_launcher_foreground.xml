@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 优惠券票根 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M36,40h36a4,4 0 0 1 4,4v5a7,7 0 0 0 0,14v5a4,4 0 0 1 -4,4h-36a4,4 0 0 1 -4,-4v-5a7,7 0 0 0 0,-14v-5a4,4 0 0 1 4,-4z" />
+    <!-- 中间的虚线分隔 -->
+    <path
+        android:fillColor="#2F6FED"
+        android:pathData="M52,45h4v5h-4zM52,54h4v5h-4zM52,63h4v5h-4z" />
+</vector>

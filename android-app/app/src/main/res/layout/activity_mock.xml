@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mock_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="模拟兑换页面（本地 · 不联网）"
+            android:textColor="#1F2733"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mock_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="本页面只做格式匹配演示，不校验真实兑换码、不上传任何内容。自动化测试只会操作本页面。"
+            android:textColor="#6B7684"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/mock_rule"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:text="当前规则：未设置"
+            android:textColor="#2F6FED"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/mock_show_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="显示兑换弹窗" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="兑换码"
+            android:textColor="#46505F"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/mock_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:autofillHints=""
+            android:fontFamily="monospace"
+            android:hint="例如 SAVE-2026-8F3K"
+            android:importantForAutofill="no"
+            android:inputType="textVisiblePassword"
+            android:maxLines="1"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/mock_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="立即兑换" />
+
+        <TextView
+            android:id="@+id/mock_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="#F7F8FA"
+            android:minHeight="44dp"
+            android:padding="12dp"
+            android:text="等待提交"
+            android:textColor="#6B7684"
+            android:textSize="14sp" />
+
+        <Switch
+            android:id="@+id/mock_switch_notfound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="模拟服务器返回「不存在」"
+            android:textColor="#46505F"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/mock_auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="自动测试（无障碍驱动本页）" />
+
+        <TextView
+            android:id="@+id/mock_auto_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:text="自动测试：未开始"
+            android:textColor="#96631A"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/mock_stop_auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="停止自动测试" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="提示：自动化只在「本应用 + 本页面」内执行，不会触碰任何第三方应用。"
+            android:textColor="#97A1B0"
+            android:textSize="12sp" />
+    </LinearLayout>
+</ScrollView>

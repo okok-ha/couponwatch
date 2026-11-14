@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "name": "luhn_demo",
+  "created_at": "2026-11-14 12:16:08",
+  "mode": "positional",
+  "confidence": 0.94,
+  "length": {
+    "min": 12,
+    "max": 12
+  },
+  "prefix": "",
+  "suffix": "",
+  "separators": [],
+  "charset": "0123456789",
+  "checksum": {
+    "algorithm": "luhn",
+    "label": "Luhn (MOD 10)",
+    "length": 1,
+    "confidence": 0.99999,
+    "support": 6
+  },
+  "notes": [
+    "所有样例等长，采用逐位统计；同一位置出现多个字符即视为可变字段。",
+    "在末 1 位检出疑似校验位：Luhn (MOD 10)（基于 6 个样本，置信度 100.00%）。"
+  ],
+  "regex": "^\\d{12}$",
+  "regex_strict": "^[0123456789]{12}$",
+  "fields": [
+    {
+      "kind": "charset",
+      "value": "",
+      "charset": "0123456789",
+      "regex_class": "\\d",
+      "gen_charset": "0123456789",
+      "min_len": 12,
+      "max_len": 12,
+      "label": "纯数字",
+      "class_key": "digits",
+      "strict_class": "[0123456789]",
+      "observed_ratio": 1.0
+    }
+  ],
+  "samples": [
+    "526018159081",
+    "301661318602",
+    "913909960308",
+    "824628194824",
+    "199351819099",
+    "378657975439"
+  ],
+  "saved_at": "2026-11-14 12:16:08"
+}

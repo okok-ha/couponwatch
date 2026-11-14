@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>本地模拟兑换页面 · couponfmt</title>
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0; padding: 48px 16px; font-family: "Microsoft YaHei", "Segoe UI", system-ui, sans-serif;
+    background: #f4f6f9; color: #1f2733; -webkit-text-size-adjust: 100%;
+  }
+  .card {
+    max-width: 520px; margin: 0 auto; background: #fff; border-radius: 14px;
+    box-shadow: 0 8px 28px rgba(31, 39, 51, .08); padding: 32px;
+  }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  p.sub { margin: 0 0 24px; color: #6b7684; font-size: 13px; line-height: 1.7; }
+  label { display: block; font-size: 13px; color: #46505f; margin-bottom: 8px; }
+  input[type=text] {
+    width: 100%; box-sizing: border-box; padding: 12px 14px; font-size: 16px; letter-spacing: 1px;
+    border: 1px solid #d6dce5; border-radius: 9px; outline: none; font-family: Consolas, monospace;
+  }
+  input[type=text]:focus { border-color: #2f6fed; box-shadow: 0 0 0 3px rgba(47, 111, 237, .12); }
+  button {
+    margin-top: 16px; width: 100%; padding: 12px; font-size: 15px; color: #fff; background: #2f6fed;
+    border: 0; border-radius: 9px; cursor: pointer;
+  }
+  button:hover { background: #2560d8; }
+  button:disabled { background: #9fb4e2; cursor: default; }
+  #result {
+    margin-top: 20px; min-height: 46px; padding: 14px 16px; border-radius: 9px; font-size: 14px;
+    background: #f7f8fa; border: 1px solid #eceff4; color: #6b7684; line-height: 1.6;
+  }
+  #result[data-status=ok] { background: #eef8f0; border-color: #cfe9d6; color: #1e7a3c; }
+  #result[data-status=not_found] { background: #fdf6ec; border-color: #f3e2c7; color: #96631a; }
+  #result[data-status=format_error] { background: #fdeeee; border-color: #f5d3d3; color: #a52a2a; }
+  .hint { margin-top: 18px; font-size: 12px; color: #97a1b0; line-height: 1.7; }
+
+  /* 手机端适配：输入框字号保持 16px，避免 iOS 聚焦自动放大 */
+  @media (max-width: 560px) {
+    body { padding: 20px 12px calc(20px + env(safe-area-inset-bottom)); }
+    .card { padding: 22px 18px; border-radius: 12px; }
+    h1 { font-size: 18px; }
+    input[type=text] { font-size: 16px; padding: 14px; letter-spacing: 2px; }
+    button { padding: 15px; font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>兑换码兑换（本地模拟）</h1>
+    <p class="sub">本页面由本机 Python 启动，仅用于验证自动化测试流程，不对接任何真实业务系统。</p>
+
+    <label for="code">兑换码</label>
+    <input id="code" name="code" type="text" autocomplete="off" spellcheck="false"
+           placeholder="请输入兑换码">
+    <button id="submit" type="button">立即兑换</button>
+
+    <div id="result" data-status="">等待输入…</div>
+
+    <div class="hint">
+      返回「格式正确」表示字符串符合本地模拟规则；「不存在」表示格式正确但不在清单中；
+      「格式错误」表示不符合规则。以上结果均为本地模拟，不代表任何真实兑换码的有效性。
+    </div>
+  </div>
+
+<script>
+(function () {
+  const input = document.getElementById('code');
+  const btn = document.getElementById('submit');
+  const box = document.getElementById('result');
+  let seq = 0;
+
+  function setResult(status, message, code) {
+    box.dataset.status = status || '';
+    box.dataset.seq = String(++seq);
+    box.dataset.code = code || '';
+    box.textContent = message + (code ? '　（' + code + '）' : '');
+  }
+
+  async function submit() {
+    const code = (input.value || '').trim();
+    if (!code) {
+      setResult('format_error', '格式错误：兑换码为空', code);
+      return;
+    }
+    btn.disabled = true;
+    setResult('pending', '正在提交…', code);
+    try {
+      const resp = await fetch('/api/redeem', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: code })
+      });
+      const data = await resp.json();
+      setResult(data.status, data.message, data.code);
+    } catch (err) {
+      setResult('error', '请求失败：' + err, code);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  btn.addEventListener('click', submit);
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); submit(); }
+  });
+  input.focus();
+})();
+</script>
+</body>
+</html>

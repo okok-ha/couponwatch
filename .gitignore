@@ -1,0 +1,36 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+out/
+*.log
+
+# ---- Android / Gradle ----
+android-app/.gradle/
+android-app/**/build/
+android-app/build/
+.gradle/
+build/
+local.properties
+*.apk
+*.aab
+*.ap_
+*.hprof
+.kotlin/
+captures/
+.cxx/
+android-app/.idea/
+.idea/
+
+# ---- 运行期产物 ----
+shots/*.tmp.png
+*.db
+*.db-shm
+*.db-wal
+
+# ---- 工具状态 ----
+.workbuddy-ai/

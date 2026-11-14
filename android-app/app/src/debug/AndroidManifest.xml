@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 仅 debug 构建注入：本机联调用广播入口，release 包不包含。 -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <receiver
+            android:name=".debugtool.DebugBatchReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.couponwatch.detector.DEBUG_BATCH_START" />
+                <action android:name="com.couponwatch.detector.DEBUG_BATCH_STOP" />
+                <action android:name="com.couponwatch.detector.DEBUG_BATCH_STATE" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

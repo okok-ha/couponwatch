@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 通知权限（Android 13+ 需运行时申请）。除此之外不申请任何敏感权限：
+         无 INTERNET、无 READ_EXTERNAL_STORAGE、无 QUERY_ALL_PACKAGES、无悬浮窗。 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- 悬浮球：需要「显示在其他应用上层」+ 前台服务（specialUse 类型） -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+
+    <!-- 包可见性：仅声明"能看到有启动图标的普通应用"，用于应用过滤列表，
+         不使用 QUERY_ALL_PACKAGES 这种全量权限。 -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".CouponWatchApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CouponWatch">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.CouponWatch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 内置模拟页面：仅本应用内可启动，不导出 -->
+        <activity
+            android:name=".ui.MockTestActivity"
+            android:exported="false"
+            android:label="@string/mock_page_title"
+            android:theme="@style/Theme.CouponWatch" />
+
+        <!-- 悬浮球常驻服务 -->
+        <service
+            android:name=".overlay.FloatingBallService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="floating_monitor_ball" />
+        </service>
+
+        <!-- 无障碍服务：必须 exported=true 才能被系统绑定，且由系统权限保护 -->
+        <service
+            android:name=".service.CouponAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+    </application>
+
+</manifest>

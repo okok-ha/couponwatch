@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">兑换码界面检测助手</string>
+    <string name="accessibility_service_label">兑换码界面检测助手</string>
+    <string name="accessibility_service_summary">识别跨应用界面中的疑似兑换弹窗，仅在本机记录</string>
+    <string name="accessibility_service_description">开启后，本服务会读取系统允许访问的窗口与界面控件信息，用于识别"疑似兑换弹窗"的出现与消失，并把结果记录在本地数据库、按需发出通知。\n\n本服务不采集密码、支付信息或与弹窗识别无关的个人信息，不进行任何自动填入或自动提交，所有数据仅保存在本机。</string>
+    <string name="mock_page_title">内置模拟页面</string>
+    <string name="notification_channel_name">弹窗检测提醒</string>
+    <string name="notification_channel_description">检测到疑似兑换弹窗时提醒</string>
+</resources>

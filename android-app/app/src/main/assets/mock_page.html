@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>模拟兑换页面</title>
+<style>
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 20px 14px 28px;
+    font-family: "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+    background: #f4f6f9; color: #1f2733; -webkit-text-size-adjust: 100%;
+  }
+  .card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    box-shadow: 0 6px 22px rgba(31, 39, 51, .07);
+  }
+  h1 { font-size: 17px; margin: 0 0 6px; }
+  p.sub { margin: 0 0 16px; font-size: 12.5px; line-height: 1.7; color: #6b7684; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  button {
+    flex: 1 1 auto; min-width: 120px; padding: 12px 14px; font-size: 14px;
+    color: #fff; background: #2f6fed; border: 0; border-radius: 10px;
+  }
+  button.ghost { background: #eef2f9; color: #2f6fed; }
+  .hint { margin-top: 14px; font-size: 12px; line-height: 1.7; color: #97a1b0; }
+
+  /* 模拟弹窗 */
+  .backdrop {
+    position: fixed; inset: 0; background: rgba(15, 22, 33, .45);
+    display: none; align-items: center; justify-content: center; padding: 20px;
+    z-index: 10;
+  }
+  .backdrop.open { display: flex; }
+  .dialog {
+    width: 100%; max-width: 340px; background: #fff; border-radius: 16px;
+    padding: 22px 20px; box-shadow: 0 18px 48px rgba(0, 0, 0, .22);
+  }
+  .dialog h2 { font-size: 17px; margin: 0 0 8px; }
+  .dialog p { font-size: 13px; line-height: 1.7; color: #46505f; margin: 0 0 14px; }
+  .dialog label { display: block; font-size: 12px; color: #6b7684; margin-bottom: 6px; }
+  .dialog input {
+    width: 100%; padding: 12px 14px; font-size: 16px; letter-spacing: 1.5px;
+    border: 1px solid #d6dce5; border-radius: 10px; outline: none;
+    font-family: ui-monospace, Consolas, monospace;
+  }
+  .dialog .actions { display: flex; gap: 10px; margin-top: 16px; }
+  .dialog .actions button { min-width: 0; }
+  .result { margin-top: 12px; font-size: 12.5px; color: #96631a; min-height: 18px; }
+  .tag {
+    display: inline-block; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px;
+    background: #eef2f9; color: #2f6fed; font-size: 11px;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="tag">本地模拟 · 不联网</span>
+    <h1>优惠券兑换（模拟页）</h1>
+    <p class="sub">
+      本页面由 APP 内置的 WebView 加载，仅用于验证"弹窗出现/消失"是否被无障碍服务正确识别。
+      页面不校验任何真实兑换码，也不会上传任何内容。
+    </p>
+    <div class="row">
+      <button onclick="showDialog()">显示兑换弹窗</button>
+      <button class="ghost" onclick="hideDialog()">关闭弹窗</button>
+    </div>
+    <div class="row">
+      <button class="ghost" onclick="autoDemo()">自动演示（8 次）</button>
+    </div>
+    <div class="hint">
+      也可以用顶部工具栏的「自动演示」，或切到「原生弹窗」验证控件级特征。
+    </div>
+  </div>
+
+  <div class="backdrop" id="backdrop">
+    <div class="dialog" role="dialog" aria-modal="true" aria-label="限时兑换">
+      <h2>限时兑换</h2>
+      <p>输入兑换码领取 10 元优惠券。此处的兑换码不会被校验、保存或上传。</p>
+      <label for="code">兑换码</label>
+      <input id="code" type="text" autocomplete="off" spellcheck="false" placeholder="例如 SAVE-2026-8F3K">
+      <div class="actions">
+        <button class="ghost" onclick="hideDialog()">取消</button>
+        <button onclick="fakeRedeem()">立即兑换</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+<script>
+  var backdrop = document.getElementById('backdrop');
+  var result = document.getElementById('result');
+  var timer = null;
+
+  function showDialog() {
+    backdrop.classList.add('open');
+    result.textContent = '';
+  }
+
+  function hideDialog() {
+    backdrop.classList.remove('open');
+  }
+
+  function fakeRedeem() {
+    // 纯前端提示，不做任何网络请求
+    var value = (document.getElementById('code').value || '').trim();
+    if (!value) {
+      result.textContent = '格式错误：兑换码为空';
+    } else if (value.length < 8) {
+      result.textContent = '格式错误：长度不足';
+    } else {
+      result.textContent = '本地模拟结果：格式正确（不代表真实有效）';
+    }
+  }
+
+  function autoDemo() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+      return;
+    }
+    var count = 0;
+    timer = setInterval(function () {
+      if (count % 2 === 0) {
+        showDialog();
+      } else {
+        hideDialog();
+      }
+      count++;
+      if (count >= 8) {
+        clearInterval(timer);
+        timer = null;
+      }
+    }, 2500);
+  }
+</script>
+</body>
+</html>
